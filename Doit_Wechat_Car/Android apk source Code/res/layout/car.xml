@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    tools:context=".MainActivity" >
+
+
+       <TextView
+        android:id="@+id/car_title"  
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+       
+
+    <Button
+        android:id="@+id/but_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="2dp"
+        android:background="@drawable/stop" />
+
+    <Button
+        android:id="@+id/but_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="2dp"
+        android:layout_toLeftOf="@id/but_center"
+        android:background="@drawable/left" />
+
+    <Button
+        android:id="@+id/but_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="2dp"
+        android:layout_toRightOf="@id/but_center"
+        android:background="@drawable/right" />
+
+    <Button
+        android:id="@+id/but_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/but_center"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="2dp"
+        android:background="@drawable/up" />
+
+    <Button
+        android:id="@+id/but_below"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/but_center"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="2dp"
+        android:background="@drawable/down" />
+
+
+    <TextView
+        android:id="@+id/tv_d_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/but_below"
+        android:textSize="20dp" />
+
+</RelativeLayout>

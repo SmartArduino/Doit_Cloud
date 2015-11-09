@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <drawable name="black">#000000</drawable> 
+   <drawable name="gray91">#E8E8E8</drawable>
+   <drawable name="grey31">#696969</drawable>
+   <drawable name="Firebrick">#363636</drawable>
+   <drawable name="AntiqueWhite4">#FF7F00</drawable>
+   <drawable name="white">#FFFFFF</drawable>
+   <drawable name="GhostWhite">#F8F8FF</drawable> 
+   <drawable name="LightSkyBlue1">#B0E2FF</drawable>
+   <drawable name="DarkOrange4">#8B4500</drawable>
+   <drawable name="LemonChiffon3">#CDC9A5</drawable>
+    
+    <color name="white">#FFFFFF</color>   
+    <color name="black">#000000</color>   
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>   
+    <color name="blue">#0000FF</color>  		
+    <color name="grey21">#9C9C9C</color>	
+    <color name="LightCyan4">#B4CDCD</color>
+    <color name="LightCyan1">#607B8B</color>
+    <color name="Firebrick">#363636</color>
+   <color name="AntiqueWhite4">#FF7F00</color>
+    
+    <color name="grey31">#696969</color>
+    <color name="textviewcolor">#ff99cc33</color>
+    <color name="list_item_title">#ff333333</color>
+    <color name="list_item_title_2">#ff696969</color>
+    <color name="list_item_divider">#ffcfcfc6</color>
+    <color name="transparent">#00000000</color>
+    <color name="search_edit_hint_bg">#ff999999</color> 
+    <color name="listview_bg">#fff5f5eb</color>
+    <color name="fenlei_item_title_color">#ff797d6e</color>
+    <color name="title_color">#ff494949</color>
+    <color name="news_content">#ff494949</color>
+    <color name="update">#fff1f1f1</color>
+    <color name="update1">#ff99cc33</color>
+    <color name="translucent_background">#60000000</color>
+    <color name="textColor_1">#ff99cc33</color>
+    <color name="textColor_2">#ffa5d24c</color>
+    <color name="textColor_3">#ffa4c267</color>
+    <color name="textColor_4">#ffcbf17d</color>
+    <color name="textColor_5">#ffcc0000</color>
+    <color name="addFooterView">#ffdedede</color>
+ 
+    <color name="region">#8000ff00</color>
+    <color name="listTitle">#ff23323b</color>
+    <color name="text">#ff848f9b</color>
+    <color name="write">#ffffffff</color>
+    <color name="lightgrey">#ff888888</color>
+    
+    <color name="chat_bg">#89988D</color>
+    
+    
+         <color name="top_bg">#ff373d5a</color>   
+    <color name="gray">#ff808080</color>    
+    <color name="gold">#ffffd700</color>
+    <color name="yellow">#ffffff00</color>  
+    <color name="purple">#ff800080</color>
+    <color name="pink">#ffffc0cb</color>
+    <color name="orange">#ffffa500</color>
+    <color name="lemonyellow">#fffffacd</color>
+    <color name="graywhite">#fff5f5f5</color>
+    <color name="grayslate">#ff708090</color>
+    <color name="lightblue">#ff0083ff</color>    
+    <color name="bottom_text_bg">#ef66b0e0</color>
+   
+    
+        <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="possible_result_points">#c0ffbd21</color>
+    <!-- Android standard ICS color -->
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c099cc00</color>
+    <!-- Android standard ICS color -->
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color> 
+    <color name="viewfinder_laser">#ffcc0000</color>
+    <!-- Android standard ICS color -->
+    <color name="viewfinder_frame1">#2477ab</color>
+    <color name="viewfinder_frame">#00dd00</color>
+    <color name="viewfinder_mask">#60000000</color>
+</resources>
+
