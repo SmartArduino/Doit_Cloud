@@ -49,7 +49,7 @@ function parseData(scktype,conn,data)
 					local d =  string.sub(var,5)
 					pwm.setduty(2,d*1023/100)
 					d=nil
-				elseif string.sub(var,1,4) == '3&v=' then
+				elseif string.sub(var,1,4) == '4&v=' then
 					local d =  string.sub(var,5)
 					pwm.setduty(4,d*1023/100)
 					d=nil
