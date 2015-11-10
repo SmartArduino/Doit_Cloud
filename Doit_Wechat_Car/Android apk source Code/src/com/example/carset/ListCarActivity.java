@@ -177,7 +177,7 @@ public class ListCarActivity extends Activity  implements SwipeRefreshLayout.OnR
 				}
 				
 			}
-		}, 0,5000);
+		}, 0,2000);
 	}
 	
 	private void reload(){ 

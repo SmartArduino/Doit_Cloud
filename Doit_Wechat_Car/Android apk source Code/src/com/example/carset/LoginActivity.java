@@ -146,7 +146,7 @@ public class LoginActivity extends Activity implements OnClickListener{
         // TODO Auto-generated method stub  
         super.onActivityResult(requestCode, resultCode, data);   
         if (requestCode == REQUSET && resultCode == RESULT_OK) {  
-        	 open_id = data.getStringExtra("RESULT");
+        	 open_id = data.getStringExtra("OPEN_ID");
         	 uid = data.getStringExtra("UID");
         	 pass = data.getStringExtra("PASS");
  			 edit_uid.setText(uid);
