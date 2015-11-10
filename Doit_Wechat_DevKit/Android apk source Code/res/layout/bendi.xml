@@ -1,0 +1,140 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    tools:context="${relativePackage}.${activityClass}" >
+
+           <TextView
+        android:id="@+id/bendititle" 
+        android:text="本地模式"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+           
+           
+    <TextView
+        android:id="@+id/text1"
+        android:layout_below="@id/bendititle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/but1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:gravity="center"
+        android:text="@string/retry"
+        android:textSize="25sp"
+        android:layout_marginBottom="55dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft ="15.0dip"
+		android:layout_marginRight ="15.0dip" 
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/mainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dip"
+        android:layout_marginLeft ="10.0dip"
+		android:layout_marginRight ="10.0dip" 
+        android:layout_below="@id/text1"
+        android:visibility="invisible" >
+ 
+            <TextView
+        android:id="@+id/gpio0"
+        android:layout_width="88dip"
+        android:layout_height="44.0dip"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp" 
+             android:text="@string/gpio0"
+        android:textSize="22sp" />
+            
+                        <Switch
+                android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="44.0dip"
+        android:layout_alignBottom="@id/gpio0"
+                android:layout_alignParentRight="true" 
+              />
+       
+                         
+                        
+            <TextView
+        android:id="@+id/gpio1"
+                android:layout_below="@id/gpio0"
+                android:layout_alignLeft="@id/gpio0"
+                   android:gravity="center"
+          android:layout_width="88dip"
+        android:layout_height="44.0dip"
+         android:text="@string/gpio1"
+        android:paddingTop="10dp"
+        android:textSize="22sp" />           
+
+       <Switch
+                android:id="@+id/switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="44.0dip"
+        android:layout_alignBottom="@id/gpio1"
+                android:layout_alignParentRight="true" 
+              />
+                  
+                                     
+                                     
+            <TextView
+        android:id="@+id/pwm0"
+                android:layout_below="@id/gpio1"
+                android:layout_alignLeft="@id/gpio1"
+                   android:gravity="center"
+          android:layout_width="88dip"
+        android:layout_height="44.0dip"
+         android:text="@string/pwm0"
+        android:paddingTop="10dp"
+        android:textSize="22sp" /> 
+        
+             <SeekBar 
+                android:id="@+id/seek1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" 
+                android:layout_alignParentRight="true" 
+                 android:layout_alignBottom="@id/pwm0"
+                 android:layout_toRightOf="@id/pwm0"
+                android:layout_marginLeft="10dip"
+                android:max="100" 
+                />           
+            
+            <TextView
+        android:id="@+id/pwm1"
+                android:layout_below="@id/pwm0"
+                android:layout_alignLeft="@id/pwm0"
+       android:gravity="center"
+          android:layout_width="88dip"
+        android:layout_height="44.0dip"
+         android:text="@string/pwm1"
+        android:paddingTop="10dp"
+        android:textSize="22sp" />             
+            
+
+            <SeekBar 
+                android:id="@+id/seek2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" 
+                android:layout_alignParentRight="true" 
+                android:layout_toRightOf="@id/pwm1"
+                android:layout_marginLeft="10dip"
+                 android:layout_alignBottom="@id/pwm1"
+                android:max="100" 
+                /> 
+
+        
+    </RelativeLayout>
+
+</RelativeLayout>

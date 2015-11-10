@@ -1,0 +1,32 @@
+apk基本功能：
+1，在局域网内，与小车通信。通信方式两种：第一种apk和小车均连接到无线路由器；第二种apk连接到小车的soft ap上。
+
+本地通信基本流程
+
+1，app启动，
+
+2，判断手机是否连接wifi。若连接进行到下一步，否则提示连接到无线路由器或者小车的soft ap。
+
+3，udp发送广播包：255.255.255.255，端口8089.内容：cmd=ping  不需要\r\n结尾
+
+4，等待回应，若无回应重发3~5次，若超时进入第5步，若有回应进入第6步。
+
+5，提示设备不在线。判断手机是否连接到Doit_ESP_xxxxxx的wifi，提示用户搜索Doit_ESP_xxxxxx并连接。或者提示用户连接到局域网，并使小车连接到局域网。
+等待连接完成。返回到第3步。
+
+6，小车回应：cmd=pong&sta_ip=192.168.xxx.xxx&host_ip=192.168.4.1或者cmd=pong&sta_ip=&host_ip=192.168.4.1
+若sta_ip不为空，则使用sta_ip连接小车(UDP 8089)；
+若sta_ip为空，则使用host_ip连接小车(UDP 8089)（host_ip为192.168.4.1，一直不变）
+
+7，控制小车命令
+cmd=control&d=0  ：小车停止 	小车应答：ok
+cmd=control&d=1  ：小车前进	小车应答：ok
+cmd=control&d=2  ：小车后退	小车应答：ok
+cmd=control&d=3  ：小车左转	小车应答：ok
+cmd=control&d=4  ：小车右转	小车应答：ok
+
+cmd=control&d=5  ：返回小车速度
+小车速度值：0~1023，返回格式为：cmd=control&spd=100
+
+cmd=control&d=6  ：小车加速	小车应答：ok
+cmd=control&d=7  ：小车减速	小车应答：ok

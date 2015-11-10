@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    tools:context=".MainActivity" >
+
+
+    <RelativeLayout 
+        	android:id="@+id/lay2" 
+        android:layout_width="match_parent"
+        android:layout_height="45dp" 
+        android:orientation="horizontal" >
+
+               <TextView
+        android:id="@+id/ledtitle" 
+        android:text="@string/str_led"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+               
+               
+                        <Button
+            android:id="@+id/led_on"
+            android:layout_width="54dp"
+            android:layout_height="38dp" 
+            android:text="@string/str_led_on"
+            android:layout_alignParentRight="true" 
+            android:layout_centerVertical="true"
+            android:background="@drawable/bt"
+            android:layout_marginRight="3dp"     
+            android:textColor="#000000"
+            />
+                        <Button
+            android:id="@+id/led_off"
+            android:layout_width="54dp"
+            android:layout_height="38dp" 
+                  android:text="@string/str_led_off"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+              android:background="@drawable/bt"
+            android:layout_marginLeft="3dp"     
+            android:textColor="#000000"
+            />
+                                                
+    </RelativeLayout>     
+    
+    
+    <RelativeLayout   
+         android:id="@+id/rl_input"
+         android:background="@drawable/set_item"
+	     android:layout_width="fill_parent" 
+ 	     android:layout_height="55dp"     
+ 	       		android:layout_alignParentBottom="true" 
+	     android:gravity="center"   >
+	
+            
+ 		 	 <Button android:id="@+id/send" 
+				android:layout_height="46dp"
+				android:layout_width="wrap_content"  
+				android:layout_alignParentRight="true"  
+				android:layout_centerVertical="true"  
+				android:text="   Send   " 
+				android:background="@drawable/btn_style_alert_dialog_button"
+				android:textColor="#000000"
+       			 
+				 />	  
+     
+			     		 	  	    
+ 		 	  <EditText android:id="@+id/edit" 
+		 	 	android:layout_centerVertical="true" 
+		 	 	android:layout_alignParentLeft="true"  
+		 	 	android:layout_toLeftOf="@id/send"
+				android:layout_height="40dp"
+				android:layout_marginLeft="3dp"
+				android:layout_width="fill_parent"  
+				android:singleLine="true"
+				android:textSize="18sp"
+				android:textColor="#000000"  
+				android:gravity="left|top"
+				style="@style/MMEditText" 
+				/> 
+		</RelativeLayout>		
+
+    
+        <ImageView
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"  
+      android:layout_above="@id/rl_input"
+      android:layout_below="@id/lay2"  
+      android:id="@+id/bg_image" 
+      android:scaleType="fitXY"
+      android:background="@drawable/chat_bg"
+     />
+
+	    <ListView  
+		android:id="@+id/mycontent" 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_above="@id/rl_input"
+	    android:layout_below="@id/lay2"  
+		android:fadingEdge="none"
+		android:cacheColorHint="#00000000"
+	    android:transcriptMode="normal"
+	    />
+     
+ 
+</RelativeLayout>
