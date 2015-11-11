@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="80.0dip"
+    android:background="@drawable/item"
+    android:drawingCacheQuality="high"
+    android:minHeight="72.0dip"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/sItemIcon"
+        android:layout_width="60.0dip"
+        android:layout_height="60.0dip" 
+        android:layout_marginLeft="10dip"
+        android:layout_centerVertical="true"
+        android:background="@drawable/rc_item_bg" 
+        android:scaleType="fitXY" />
+
+    <TextView 
+        android:id="@+id/sItemTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_marginLeft="10dip" 
+        android:layout_marginTop="5dip"
+        android:layout_toRightOf="@+id/sItemIcon"
+        android:gravity="top" 
+        android:lines="2"
+        android:textColor="@color/listTitle"
+        android:textSize="20.0sp" />
+
+    
+       <TextView 
+        android:id="@+id/likeImage"
+        android:layout_width="24dip"
+        android:layout_height="24dip"
+        android:layout_marginLeft="10dip"
+        android:layout_alignBottom="@id/sItemIcon"
+        android:layout_toRightOf="@id/sItemIcon"
+        android:gravity="center_vertical"
+         /> 
+         
+        <TextView 
+        android:id="@+id/likeText"
+        android:layout_width="wrap_content"
+        android:layout_height="22dip" 
+        android:layout_alignBottom="@id/sItemIcon" 
+         android:layout_alignLeft="@id/sItemTitle" 
+         android:gravity="bottom"
+        android:textSize="15.0sp" 
+         />
+        
+        
+              
+        <TextView 
+        android:id="@+id/commendImage"
+        android:layout_width="24dip"
+        android:layout_height="24dip"
+        android:layout_marginLeft="8dip"
+        android:layout_alignBottom="@id/likeText"
+        android:layout_toRightOf="@id/likeText"
+        android:gravity="center_vertical" 
+         />      
+         <TextView 
+        android:id="@+id/commendText"
+        android:layout_width="wrap_content"
+        android:layout_height="24dip"
+        android:layout_marginLeft="2dip"
+        android:layout_alignBottom="@id/commendImage"
+        android:layout_toRightOf="@id/commendImage"
+        android:gravity="center_vertical"  
+         />
+       
+       
+
+    <TextView 
+        android:id="@+id/sItemInfo"
+        android:layout_width="28dip"
+        android:layout_height="28dip"
+        android:layout_marginRight="10dip" 
+        android:layout_alignParentRight="true" 
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

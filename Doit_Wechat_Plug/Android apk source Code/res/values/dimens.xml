@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="thumbnail_size">80dp</dimen>
+    <dimen name="thumbnail_radius">3dp</dimen>
+    
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>    
+     
+    
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    
+    
+    <dimen name="BasicTextSize">15.0dip</dimen>
+        
+    <dimen name="add_size">55dp</dimen>
+       
+       
+       <dimen name="top_padding">10.0dip</dimen>
+    <dimen name="post_title">16.0dip</dimen>
+    <dimen name="post_content">16.0dip</dimen>
+    <dimen name="index_bottom_text">16.0sp</dimen>
+    <dimen name="spinner_text">18.0sp</dimen>
+    <dimen name="spinner_arraw">16.0sp</dimen>
+    <dimen name="score_text">16.0sp</dimen>
+    <dimen name="comic_title">14.0sp</dimen>
+    
+        <dimen name="standard_padding">8dip</dimen>
+  <dimen name="half_padding">4dip</dimen>
+   
+</resources>

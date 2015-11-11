@@ -1,6 +1,6 @@
 cfg={
-id='DOIT-SN-10BCF-49146',
-key='53b8651af58ac56c4fa345a516f291f5',	 
+id='DOIT-SN-29F2-46080',
+key='97d74ffea422bb849ca897087f4e0380',	 
 domain='s.doit.am',
 port=8810,
 apssid='Doit_ESP_'..node.chipid(),

@@ -1,0 +1,128 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    tools:context="${relativePackage}.${activityClass}" >
+
+           <TextView
+        android:id="@+id/bendititle" 
+        android:text="本地模式"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+           
+           
+    <TextView
+        android:id="@+id/text1"
+        android:layout_below="@id/bendititle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/but1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:gravity="center"
+        android:text="@string/retry"
+        android:textSize="25sp"
+        android:layout_marginBottom="55dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft ="15.0dip"
+		android:layout_marginRight ="15.0dip" 
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/mainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dip"
+        android:layout_marginLeft ="10.0dip"
+		android:layout_marginRight ="10.0dip" 
+        android:layout_below="@id/text1"
+        android:visibility="invisible" >
+ 
+       <TextView
+        android:id="@+id/bendi_port1"
+        android:layout_width="88dip"
+        android:layout_height="44.0dip"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp" 
+             android:text="@string/port1"
+        android:textSize="24sp" />
+            
+                        <Switch
+                android:id="@+id/bendi_port_switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="44.0dip"
+        android:layout_alignBottom="@id/bendi_port1"
+                android:layout_alignParentRight="true" 
+              />       
+        
+                <TextView
+        android:id="@+id/bendi_port2"
+        android:layout_width="88dip"
+        android:layout_height="44.0dip"
+            android:layout_below="@id/bendi_port1"
+                android:layout_alignLeft="@id/bendi_port1"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp" 
+             android:text="@string/port2"
+        android:textSize="24sp" />
+            
+                        <Switch
+                android:id="@+id/bendi_port_switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="44.0dip"
+        android:layout_alignBottom="@id/bendi_port2"
+                android:layout_alignParentRight="true" 
+              />           
+        
+                 <TextView
+        android:id="@+id/bendi_port3"
+        android:layout_width="88dip"
+        android:layout_height="44.0dip"
+            android:layout_below="@id/bendi_port2"
+                android:layout_alignLeft="@id/bendi_port2"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp" 
+             android:text="@string/port3"
+        android:textSize="24sp" />
+            
+                        <Switch
+                android:id="@+id/bendi_port_switch3"
+        android:layout_width="wrap_content"
+        android:layout_height="44.0dip"
+        android:layout_alignBottom="@id/bendi_port3"
+                android:layout_alignParentRight="true" 
+              />  
+              
+                 <TextView
+        android:id="@+id/bendi_port4"
+        android:layout_width="88dip"
+        android:layout_height="44.0dip"
+            android:layout_below="@id/bendi_port3"
+                android:layout_alignLeft="@id/bendi_port3"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp" 
+             android:text="@string/port4"
+        android:textSize="24sp" />
+            
+                        <Switch
+                android:id="@+id/bendi_port_switch4"
+        android:layout_width="wrap_content"
+        android:layout_height="44.0dip"
+        android:layout_alignBottom="@id/bendi_port4"
+                android:layout_alignParentRight="true" 
+              />                               
+        
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:background="@drawable/bg1"  >
+    
+ 
+               <TextView
+        android:id="@+id/tip_title" 
+        android:text="@string/str_esp"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+               android:layout_alignParentTop="true"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+               
+               
+          <ImageView
+        android:id="@+id/image_tip"
+        android:layout_width="108dip"
+        android:layout_height="108dip"   
+        android:layout_marginTop="10dip"
+         android:layout_below="@id/tip_title"
+        android:layout_centerHorizontal="true"
+         android:background="@drawable/wifi"
+          />
+          
+        <TextView
+        android:id="@+id/tip1"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"  
+        android:layout_below="@id/image_tip"
+           android:layout_marginTop="10dip"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+                      android:text="@string/str_tip1"
+          />
+         <TextView
+        android:id="@+id/tip2"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"  
+        android:layout_below="@id/tip1"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+                     android:text="@string/str_tip2"
+          />       
+          <TextView
+        android:id="@+id/tip3"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"  
+        android:layout_below="@id/tip2"
+            android:layout_centerHorizontal="true"
+            android:text="@string/str_tip3"
+            android:gravity="center"
+          />
+          
+          
+     <Button
+        android:id="@+id/b_tip"
+        android:layout_width="250dip"
+        android:layout_height="50dip" 
+            android:background="@drawable/bt"
+            android:layout_below="@id/tip3"
+              android:textSize="20sp" 
+                android:layout_centerHorizontal="true"
+                      android:layout_marginTop="20dp"
+             android:text="@string/str_tip_start" />    
+     
+     
+
+</RelativeLayout>

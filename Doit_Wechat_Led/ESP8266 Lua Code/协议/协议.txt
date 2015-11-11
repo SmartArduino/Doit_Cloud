@@ -1,0 +1,48 @@
+平台基于TCP通讯，服务器IP: s.doit.am 端口：8810
+
+
+1.数据上传：
+  cmd=upload&device_id=Doit-LED-S7865ABC&device_key=bltw9gBbSMrjxv8Ph4YH3mQz&name=gpio&value=123&name=gpio10&value=53.12
+应答:
+ cmd=upload&res=1
+通过 http://wechat.doit.am 数据->实时数据 可以实时查看。
+
+
+
+2.订阅设备（使设备在线）：
+        cmd=subscribe&device_id=Doit-LED-S7865ABC&device_key=bltw9gBbSMrjxv8Ph4YH3mQz
+ 应答：
+	cmd=subscribe&res=1
+ 
+       收到，cmd=publish&name=humidity&value=poweron
+
+
+3.保持心跳:
+	cmd=keep&deivce_id=12387&device_key=liqin
+  应答：
+	cmd=keep&res=1
+	
+	
+4.发送指令:（网页指令推送）
+TCPClient:cmd=publish&message=cmd=publish&message=Hello 
+     cmd=publish&device_id=Doit-LED-S7865ABC&device_key=bltw9gBbSMrjxv8Ph4YH3mQz&message=12345
+
+
+5.针对产品发送:
+     cmd=publish_product&product_id=2&product_key=lihonggang&message=123456
+
+
+
+6.管道:
+    cmd=pipe&device_id=Doit-LED-S7865ABC&device_key=bltw9gBbSMrjxv8Ph4YH3mQz&message=12345
+
+7.应答管道:
+   cmd=pope&device_id=Doit-LED-S7865ABC&device_key=bltw9gBbSMrjxv8Ph4YH3mQz&message=7890
+
+8.状态通知：
+  cmd=stat&device_id=Doit-LED-S7865ABC&device_key=bltw9gBbSMrjxv8Ph4YH3mQz&message=7890
+
+10.M2M对话
+ cmd=m2m_chat&device_id=Doit-LED-S7865ABC&device_key=bltw9gBbSMrjxv8Ph4YH3mQz&topic=test&message=7890
+
+ cmd=m2m_chat&device_id=Doit-LED-S7865ABC&device_key=bltw9gBbSMrjxv8Ph4YH3mQz&topic=Doit-LED-S7865ABC_chat&message=7890

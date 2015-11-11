@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    android:gravity="center_horizontal" >
+
+    <RelativeLayout 
+        	android:id="@+id/titlelayout1" 
+        android:layout_width="match_parent"
+        android:layout_height="45dp" 
+        android:orientation="horizontal" >
+
+               <TextView
+        android:id="@+id/ledtitle" 
+        android:text="@string/str_led"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+                                                
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/color_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titlelayout1"
+        android:gravity="center_horizontal" >
+
+        <com.larswerkman.holocolorpicker.ColorPicker
+            android:id="@+id/picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/sk1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/color_layout"
+        android:max="254"
+        android:progress="254"
+        android:layout_margin="10dp" />
+    
+    <ImageView 
+        android:id="@+id/bt1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/sk1"
+        android:background="@drawable/guan"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
