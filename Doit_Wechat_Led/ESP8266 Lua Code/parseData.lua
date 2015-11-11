@@ -63,8 +63,8 @@ function parseData(scktype,conn,data)
 		if #var>0 then
 			local t=split(var,'|')
 			pwm.setduty(ledR,(255-t[1])*1023/255);
-			pwm.setduty(ledB,(255-t[2])*1023/255);
-			pwm.setduty(ledG,(255-t[3])*1023/255);
+			pwm.setduty(ledG,(255-t[2])*1023/255);
+			pwm.setduty(ledB,(255-t[3])*1023/255);
 			print("Parse Message: "..var..' '..t[1]..' '..t[2]..' '..t[3])
 			t=nil
 		end
