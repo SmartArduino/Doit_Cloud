@@ -70,12 +70,12 @@ function parseData(scktype,conn,data)
 	if string.find(data,'cmd=subscribe&res=1') ~=nil then
 			conn:send('cmd=m2m_chat&device_id='..cfg.id..'&device_key='..cfg.key..'&topic='..cfg.id..'_chat\r\n');
 --返回插座当前状态
-	elseif string.find(data,'cmd=pipe&message=get_stat') ~=nil then
+	elseif string.find(data,'&message=get_stat') ~=nil then
 		local temp = (1-gpio.read(1))..'|'..(1-gpio.read(2))..'|'..(1-gpio.read(4))..'|'..(1-gpio.read(5))
 		conn:send('cmd=pope&device_id='..cfg.id..'&device_key='..cfg.key..'&message='..temp..'\r\n')
 		temp=nil
 --处理远程控制命令
-	elseif string.find(data,'cmd=publish&message=p_port') ~=nil then
+	elseif string.find(data,'&message=p_port') ~=nil then
 		local st;
 		_,st=string.find(data,'p_port')
 		local var = string.sub(data,st+1,#data-2)

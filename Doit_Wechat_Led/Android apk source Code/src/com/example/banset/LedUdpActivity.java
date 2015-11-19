@@ -6,6 +6,7 @@ import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.ColorPicker.OnColorChangedListener;
 import com.larswerkman.holocolorpicker.ColorPicker.OnColorSelectedListener;
 
 import am.doit.ledmanager.R;
@@ -106,10 +107,19 @@ public class LedUdpActivity extends Activity {
 		picker = (ColorPicker) findViewById(R.id.picker);
 		picker.setShowOldCenterColor(false);
 
-		picker.setOnColorSelectedListener(new OnColorSelectedListener() {
+//		picker.setOnColorSelectedListener(new OnColorSelectedListener() {
+//			
+//			@Override
+//			public void onColorSelected(int color) {
+//				// TODO Auto-generated method stub
+//				send(1);
+//			}
+//		});
+		
+		picker.setOnColorChangedListener(new OnColorChangedListener() {
 			
 			@Override
-			public void onColorSelected(int color) {
+			public void onColorChanged(int color) {
 				// TODO Auto-generated method stub
 				send(1);
 			}
@@ -135,8 +145,8 @@ public class LedUdpActivity extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				System.out.println(sk1.getProgress());
-				send(1);
+				//System.out.println(sk1.getProgress());
+				//send(1);
 			}
 			
 			@Override
@@ -149,7 +159,7 @@ public class LedUdpActivity extends Activity {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				// TODO Auto-generated method stub
-				
+				send(1);
 			}
 		});
 		

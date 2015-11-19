@@ -10,6 +10,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.ColorPicker.OnColorChangedListener;
 import com.larswerkman.holocolorpicker.ColorPicker.OnColorSelectedListener;
 
 import am.doit.ledmanager.R;
@@ -82,6 +83,15 @@ public class LedActivity extends Activity implements OnColorSelectedListener {
 
 		
 		picker.setOnColorSelectedListener(this);
+//		picker.setOnColorChangedListener(new OnColorChangedListener() {
+//			
+//			@Override
+//			public void onColorChanged(int color) {
+//				// TODO Auto-generated method stub
+//				send(1);
+//			}
+//		});
+		
 		
 		bt1.setOnClickListener(new OnClickListener() {
 			
@@ -117,7 +127,7 @@ public class LedActivity extends Activity implements OnColorSelectedListener {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				// TODO Auto-generated method stub
-				
+				//send(1);
 			}
 		});
 	}

@@ -66,7 +66,7 @@ function parseData(scktype,conn,data)
 	if string.find(data,'cmd=subscribe&res=1') ~=nil then
 			conn:send('cmd=m2m_chat&device_id='..cfg.id..'&device_key='..cfg.key..'&topic='..cfg.id..'_chat\r\n');
 --处理远程控制命令
-	elseif string.find(data,'cmd=publish&message=') ~=nil then
+	elseif string.find(data,'&message=') ~=nil then
 		local st;
 		_,st=string.find(data,'&message=')
 		local var = string.sub(data,st+1)
