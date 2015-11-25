@@ -1,0 +1,55 @@
+<html><head><title>Doit Arduino</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+<style>
+body{max-width:640px;width:100%;margin:0 auto;font-family: Arial,sans-serif;font-size: 15px;}
+input,select,button{font-family:inherit;font-size:inherit;}
+form{width:90%;margin: 1em auto;line-height: 2.4em;padding:5%;box-shadow: 0 0 10px rgba(0,0,0,.5);border-radius: 10px;}
+.button_group{text-align:center;margin-top: 1em;}
+.control_group label{width:45%;display: inline-block;text-align:right;padding-right: 5%;}
+.control_group input{max-width:45%;}
+button{border:none;border-radius:4px;line-height:2em;color:#fff;margin-right: 1em;}
+button.green{background:#45c01a;}
+button.gray{background:#666;}
+</style>
+<script>
+function $(id) { return document.getElementById(id); };
+function settingsCallback(o) {
+if ($('txtSTASSID')) $('txtSTASSID').value = o.stassid;
+if ($('txtSTAPSW')) $('txtSTAPSW').value = o.stapsw;
+if ($('baud')) $('baud').value = o.baud;
+if ($('staip')) $('staip').value = o.staip;
+if ($('staMac')) $('staMac').value = o.stamac;
+};</script>
+</head>
+<body>
+<form id='frmSetting' method='POST' action='para.cgi'>
+<label>WiFi Status: </label>
+<div class="control_group">
+	<label>STA IP:</label><input type='text' id='staip' name='staip' size='20' readonly />
+	<label>STA MAC:</label><input type='text' id='staMac' name='stamac' size='20' readonly />
+</div>
+<label>Serial Setting: </label>
+<div class="control_group">
+	<label>Baud:</label><select id="baud" name="baud">
+		<option value="1200">1200</option>
+		<option value="2400">2400</option>
+        <option value="4800">4800</option>
+		<option value="9600">9600</option>
+        <option value="19200">19200</option>
+		<option value="38400">38400</option>
+		<option value="115200">115200</option>
+    </select>
+</div>
+<label>STA Setting: </label>
+<div class="control_group">
+	<label>STA SSID:</label><input type='text' id='txtSTASSID' name='stassid' size='20' placeholder="Enter SSID" />
+	<label>STA Password:</label><input type='text' id='txtSTAPSW' name='stapsw' size='20' placeholder="Password" />
+</div>
+<div class="button_group">
+<button class="green" onclick="this.form.submit();" >Submit</button>
+</div>
+<div style='text-align:center;'>
+Copyright &copy; Doit.am 2015(V1.1), All Rights Reserved
+</div>
+</form>
