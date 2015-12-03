@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -47,7 +48,8 @@ public class LoginActivity extends Activity implements OnClickListener{
     private boolean check_flag;
     private ProgressDialog pd;  
 	CheckBox cb;
-    
+     
+   
     
 	Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -88,8 +90,7 @@ public class LoginActivity extends Activity implements OnClickListener{
         }
 	};
 	
-	
-	
+ 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -97,7 +98,9 @@ public class LoginActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.login);
 		
 		initView();
-		  
+	  
+	 
+	 
 	}
 
 	private void initView() {

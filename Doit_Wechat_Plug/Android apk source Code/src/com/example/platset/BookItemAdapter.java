@@ -187,7 +187,7 @@ public class BookItemAdapter extends BaseAdapter{
 		
 		TextView sItemInfo =  (TextView) convertView.findViewById(R.id.sItemInfo); 
 		sItemInfo.setTag(position);
-		if(model.device_stat.equals("1")){
+		if(!model.device_stat.equals("0")){
 			sItemInfo.setBackgroundResource(R.drawable.online);
 		}else {
 			sItemInfo.setBackgroundResource(R.drawable.offline);

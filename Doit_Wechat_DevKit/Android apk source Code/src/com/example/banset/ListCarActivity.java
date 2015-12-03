@@ -15,6 +15,7 @@ import com.example.banset.TitlePopup.OnItemOnClickListener;
 import com.example.esptouch.demo_activity.EsptouchDemoActivity;
 import com.example.esptouch.demo_activity.TipActivity;
 import com.example.myzxingtest.MainActivity;   
+ 
 import android.support.v4.widget.SwipeRefreshLayout; 
       
 import android.annotation.SuppressLint;
@@ -251,7 +252,7 @@ public class ListCarActivity extends Activity  implements SwipeRefreshLayout.OnR
 		listView.setAdapter(adapter);
 	    listView.setOnItemClickListener(new OnItemClickListener(){ 
 	         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-	        	 if(stat_list.get(arg2).equals("1")){
+	        	 if(!stat_list.get(arg2).equals("0")){
 	        		    Intent intent = new Intent(); 
 						intent.putExtra("ID", id_list.get(arg2)); 
 						intent.putExtra("KEY", key_list.get(arg2));
@@ -306,11 +307,11 @@ public class ListCarActivity extends Activity  implements SwipeRefreshLayout.OnR
     
     private void initData(){
     	titlePopup = new TitlePopup(this, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-    	
 		titlePopup.addAction(new ActionItem(this, "扫描二维码", R.drawable.qr));
-		titlePopup.addAction(new ActionItem(this, "一键配置", R.drawable.set));
+		titlePopup.addAction(new ActionItem(this, "一键配置(ESP8266)", R.drawable.set));
+		titlePopup.addAction(new ActionItem(this, "一键配置(EMW3165)", R.drawable.set));
 		titlePopup.addAction(new ActionItem(this, "手工配置", R.drawable.set1));
-		titlePopup.setItemOnClickListener(new OnItemOnClickListener() {
+	    titlePopup.setItemOnClickListener(new OnItemOnClickListener() {
 			
 			public void onItemClick(ActionItem item, int position) {
 //				Toast.makeText(getApplication(), "This is : " + position, Toast.LENGTH_SHORT).show();
@@ -328,6 +329,11 @@ public class ListCarActivity extends Activity  implements SwipeRefreshLayout.OnR
 					break;
 					
 				case 2:
+			  		 Intent intent3 = new Intent(ListCarActivity.this, TipTwoActivity.class);
+	    		     startActivity(intent3); 
+					break;
+					
+				case 3:
 					 String ssid = getConnectWifiSsid();
 					 if(ssid.indexOf("Doit_ESP") != -1){
 						 Intent intent2 = new Intent(ListCarActivity.this, WifiListActivity.class);

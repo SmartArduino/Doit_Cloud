@@ -1,5 +1,14 @@
 package com.example.esptouch.demo_activity;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import am.doit.ledmanager.R; 
@@ -15,10 +24,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -31,7 +42,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EsptouchDemoActivity extends Activity implements OnClickListener {
-
+    private String PATH;
+    private String FAVOSSIDPATH ="/ESP8266ssid.xml";
+    private String FAVOPASSPATH ="/ESP8266pass.xml";
+    
+    private List<String> ssid_list = new ArrayList<String>(); 
+    private List<String> pass_list = new ArrayList<String>(); 
+	   private String str_ssid="",str_pass="";
+	    private String str_ssid_FLAG="",str_pass_FLAG="";
+		private int index;
+		
+		
+		
 	private static final String TAG = "EsptouchDemoActivity";
 
 	private TextView mTvApSsid;
@@ -49,9 +71,12 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 requestWindowFeature(Window.FEATURE_NO_TITLE); 
+		requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		setContentView(R.layout.esptouch_demo_activity);
 
+		readSSID(FAVOSSIDPATH);
+	    readPASS(FAVOPASSPATH);
+	    
 		mWifiAdmin = new EspWifiAdminSimple(this);
 		mTvApSsid = (TextView) findViewById(R.id.tvApSssidConnected);
 		mEdtApPassword = (EditText) findViewById(R.id.edtApPassword);
@@ -87,6 +112,19 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 		} else {
 			mTvApSsid.setText("");
 		}
+		 
+		index=-1;
+		int len = ssid_list.size();
+		for(int i=0; i<len; i++){
+			if(apSsid.equals(ssid_list.get(i))){ 
+				mEdtApPassword.setText(pass_list.get(i)); 
+				str_ssid_FLAG = apSsid;
+				str_pass_FLAG = pass_list.get(i);
+				index = i;
+				i=len;
+			}
+		}
+		
 		// check whether the wifi is connected
 		boolean isApSsidEmpty = TextUtils.isEmpty(apSsid);
 		mBtnConfirm.setEnabled(!isApSsidEmpty);
@@ -94,19 +132,18 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 
 	@SuppressLint("NewApi")
 	@Override
-	public void onClick(View v) {
-
-		
+	public void onClick(View v) { 
 		if (v == mBtnConfirm) {
 			
 			if(mEdtApPassword.getText().toString().length()==0){
 				new AlertDialog.Builder(this) 
 	    	    .setTitle("请输入账号和密码！") 
-	    	    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+	    	    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
 	    	        public void onClick(DialogInterface dialog, int which) {
 	    	        	 
 	    	        }
 	    	    }).show();
+				
 			}else{
 				String apSsid = mTvApSsid.getText().toString();
 				String apPassword = mEdtApPassword.getText().toString();
@@ -123,6 +160,10 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 					Log.d(TAG, "mBtnConfirm is clicked, mEdtApSsid = " + apSsid
 							+ ", " + " mEdtApPassword = " + apPassword);
 				}
+				
+				str_ssid = apSsid;
+				str_pass = apPassword;
+				
 				new EsptouchAsyncTask3().execute(apSsid, apBssid, apPassword,
 						isSsidHiddenStr, taskResultCountStr);
 			}
@@ -130,104 +171,104 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 		}
 	}
 	
-	private class EsptouchAsyncTask2 extends AsyncTask<String, Void, IEsptouchResult> {
-
-		private ProgressDialog mProgressDialog;
-
-		private IEsptouchTask mEsptouchTask;
-		// without the lock, if the user tap confirm and cancel quickly enough,
-		// the bug will arise. the reason is follows:
-		// 0. task is starting created, but not finished
-		// 1. the task is cancel for the task hasn't been created, it do nothing
-		// 2. task is created
-		// 3. Oops, the task should be cancelled, but it is running
-		private final Object mLock = new Object();
-
-		@Override
-		protected void onPreExecute() {
-			mProgressDialog = new ProgressDialog(EsptouchDemoActivity.this);
-			mProgressDialog
-					.setMessage("正在配置中，请稍等  ...");
-			mProgressDialog.setCanceledOnTouchOutside(false);
-			mProgressDialog.setOnCancelListener(new OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					synchronized (mLock) {
-						if (__IEsptouchTask.DEBUG) {
-							Log.i(TAG, "progress dialog is canceled");
-						}
-						if (mEsptouchTask != null) {
-							mEsptouchTask.interrupt();
-						}
-					}
-				}
-			});
-			mProgressDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-					"等待中...", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-						}
-					});
-			mProgressDialog.show();
-			mProgressDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-					.setEnabled(false);
-		}
-
-		@Override
-		protected IEsptouchResult doInBackground(String... params) {
-			synchronized (mLock) {
-				String apSsid = params[0];
-				String apBssid = params[1];
-				String apPassword = params[2];
-				String isSsidHiddenStr = params[3];
-				boolean isSsidHidden = false;
-				if (isSsidHiddenStr.equals("YES")) {
-					isSsidHidden = true;
-				}
-				mEsptouchTask = new EsptouchTask(apSsid, apBssid, apPassword,
-						isSsidHidden, EsptouchDemoActivity.this);
-			}
-			IEsptouchResult result = mEsptouchTask.executeForResult();
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(IEsptouchResult result) {
-			mProgressDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-					.setEnabled(true);
-			mProgressDialog.getButton(DialogInterface.BUTTON_POSITIVE).setText(
-					"Confirm");
-			// it is unnecessary at the moment, add here just to show how to use isCancelled()
-			if (!result.isCancelled()) {
-				if (result.isSuc()) {
-					  new AlertDialog.Builder(EsptouchDemoActivity.this)
-			          .setIcon(android.R.drawable.ic_dialog_info)
-			          .setTitle("提示")
-			          .setMessage("配置成功!") 
-			          .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-			              public void onClick(DialogInterface dialog, int whichButton) {
-							    dialog.dismiss();    
-							    finish();
-			              }
-			          }).show();
-//					mProgressDialog.setMessage("Esptouch success, bssid = "
-//							+ result.getBssid() + ",InetAddress = "
-//							+ result.getInetAddress().getHostAddress());
-				} else {
-//					mProgressDialog.setMessage("Esptouch fail");
-					  new AlertDialog.Builder(EsptouchDemoActivity.this)
-			          .setIcon(android.R.drawable.ic_dialog_info)
-			          .setTitle("提示")
-			          .setMessage("配置失败，请重试!") 
-			          .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-			              public void onClick(DialogInterface dialog, int whichButton) {
-							    dialog.dismiss();     
-			              }
-			          }).show();
-				}
-			}
-		}
-	}
+//	private class EsptouchAsyncTask2 extends AsyncTask<String, Void, IEsptouchResult> {
+//
+//		private ProgressDialog mProgressDialog;
+//
+//		private IEsptouchTask mEsptouchTask;
+//		// without the lock, if the user tap confirm and cancel quickly enough,
+//		// the bug will arise. the reason is follows:
+//		// 0. task is starting created, but not finished
+//		// 1. the task is cancel for the task hasn't been created, it do nothing
+//		// 2. task is created
+//		// 3. Oops, the task should be cancelled, but it is running
+//		private final Object mLock = new Object();
+//
+//		@Override
+//		protected void onPreExecute() {
+//			mProgressDialog = new ProgressDialog(EsptouchDemoActivity.this);
+//			mProgressDialog
+//					.setMessage("正在配置中，请稍等  ...");
+//			mProgressDialog.setCanceledOnTouchOutside(false);
+//			mProgressDialog.setOnCancelListener(new OnCancelListener() {
+//				@Override
+//				public void onCancel(DialogInterface dialog) {
+//					synchronized (mLock) {
+//						if (__IEsptouchTask.DEBUG) {
+//							Log.i(TAG, "progress dialog is canceled");
+//						}
+//						if (mEsptouchTask != null) {
+//							mEsptouchTask.interrupt();
+//						}
+//					}
+//				}
+//			});
+//			mProgressDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+//					"等待中...", new DialogInterface.OnClickListener() {
+//						@Override
+//						public void onClick(DialogInterface dialog, int which) {
+//						}
+//					});
+//			mProgressDialog.show();
+//			mProgressDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+//					.setEnabled(false);
+//		}
+//
+//		@Override
+//		protected IEsptouchResult doInBackground(String... params) {
+//			synchronized (mLock) {
+//				String apSsid = params[0];
+//				String apBssid = params[1];
+//				String apPassword = params[2];
+//				String isSsidHiddenStr = params[3];
+//				boolean isSsidHidden = false;
+//				if (isSsidHiddenStr.equals("YES")) {
+//					isSsidHidden = true;
+//				}
+//				mEsptouchTask = new EsptouchTask(apSsid, apBssid, apPassword,
+//						isSsidHidden, EsptouchDemoActivity.this);
+//			}
+//			IEsptouchResult result = mEsptouchTask.executeForResult();
+//			return result;
+//		}
+//
+//		@Override
+//		protected void onPostExecute(IEsptouchResult result) {
+//			mProgressDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+//					.setEnabled(true);
+//			mProgressDialog.getButton(DialogInterface.BUTTON_POSITIVE).setText(
+//					"Confirm");
+//			// it is unnecessary at the moment, add here just to show how to use isCancelled()
+//			if (!result.isCancelled()) {
+//				if (result.isSuc()) {
+//					  new AlertDialog.Builder(EsptouchDemoActivity.this)
+//			          .setIcon(android.R.drawable.ic_dialog_info)
+//			          .setTitle("提示")
+//			          .setMessage("配置成功!") 
+//			          .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//			              public void onClick(DialogInterface dialog, int whichButton) {
+//							    dialog.dismiss();    
+//							    finish();
+//			              }
+//			          }).show();
+////					mProgressDialog.setMessage("Esptouch success, bssid = "
+////							+ result.getBssid() + ",InetAddress = "
+////							+ result.getInetAddress().getHostAddress());
+//				} else {
+////					mProgressDialog.setMessage("Esptouch fail");
+//					  new AlertDialog.Builder(EsptouchDemoActivity.this)
+//			          .setIcon(android.R.drawable.ic_dialog_info)
+//			          .setTitle("提示")
+//			          .setMessage("配置失败，请重试!") 
+//			          .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//			              public void onClick(DialogInterface dialog, int whichButton) {
+//							    dialog.dismiss();     
+//			              }
+//			          }).show();
+//				}
+//			}
+//		}
+//	}
 	
 	private void onEsptoucResultAddedPerform(final IEsptouchResult result) {
 		runOnUiThread(new Runnable() {
@@ -321,48 +362,52 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 					.setEnabled(true);
 			mProgressDialog.getButton(DialogInterface.BUTTON_POSITIVE).setText(
 					"Confirm");
-			IEsptouchResult firstResult = result.get(0);
-			// check whether the task is cancelled and no results received
+			IEsptouchResult firstResult = result.get(0); 
 			if (!firstResult.isCancelled()) {
-				int count = 0;
-				// max results to be displayed, if it is more than maxDisplayCount,
-				// just show the count of redundant ones
-				final int maxDisplayCount = 5;
-				// the task received some results including cancelled while
-				// executing before receiving enough results
+//				int count = 0; 
+//				final int maxDisplayCount = 5; 
 				if (firstResult.isSuc()) {
-					
+			           try {  
+			          	    if(str_ssid_FLAG.equals(str_ssid)){
+			          	    	if(!str_pass_FLAG.equals(str_pass)){
+			          		    	if(str_ssid.length()>0 && str_pass.length()>0 && index!=-1){
+			    	              	    ssid_list.set(index, str_ssid);
+			    	              	    pass_list.set(index, str_pass);
+			    	  				    writeSSID(FAVOSSIDPATH);
+			    	  				    writePASS(FAVOPASSPATH);
+			              	    	}
+			          	    	}
+			          	    }else{
+			          	    	if(str_ssid.length()>0 && str_pass.length()>0){
+				              	    ssid_list.add(str_ssid);
+				              	    pass_list.add(str_pass);
+				  				    writeSSID(FAVOSSIDPATH);
+				  				    writePASS(FAVOPASSPATH);
+			          	    	}
+			          	    }
+	    	            } catch (Exception e) {  
+	    	                // TODO Auto-generated catch block  
+	    	                e.printStackTrace();  
+	    	            } 
+	
+	          	    
+	            	   
 					  new AlertDialog.Builder(EsptouchDemoActivity.this)
 			          .setIcon(android.R.drawable.ic_dialog_info)
 			          .setTitle("提示")
 			          .setMessage("配置成功!") 
 			          .setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			              public void onClick(DialogInterface dialog, int whichButton) {
-							    dialog.dismiss();    
-							    finish();
+ 
+				            	dialog.dismiss();    
+								finish();
 			              }
-			          }).show();
-					  
-					  
-//					StringBuilder sb = new StringBuilder();
-//					for (IEsptouchResult resultInList : result) {
-//						sb.append("Esptouch success, bssid = "
-//								+ resultInList.getBssid()
-//								+ ",InetAddress = "
-//								+ resultInList.getInetAddress()
-//										.getHostAddress() + "\n");
-//						count++;
-//						if (count >= maxDisplayCount) {
-//							break;
-//						}
-//					}
-//					if (count < result.size()) {
-//						sb.append("\nthere's " + (result.size() - count)
-//								+ " more result(s) without showing\n");
-//					}
-//					mProgressDialog.setMessage(sb.toString());
-				} else {
-//					mProgressDialog.setMessage("Esptouch fail");
+			          }).show();  
+				} else { 
+					
+					 str_ssid = null;
+					 str_pass = null;
+					 
 					  new AlertDialog.Builder(EsptouchDemoActivity.this)
 			          .setIcon(android.R.drawable.ic_dialog_info)
 			          .setTitle("提示")
@@ -375,5 +420,125 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 				}
 			}
 		}
+	}
+	
+	
+	 public boolean onKeyDown(int keyCode, KeyEvent event)   
+	    {  
+	                 if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)  
+	                 {  
+	                           
+	    					    
+	                          finish();   
+	                                   
+	                          return true;  
+	                 }  
+	                 return super.onKeyDown(keyCode, event);  
+	    }  
+	 
+	
+	
+	private void readSSID(String res){  
+		PATH =this.getFilesDir().getPath();
+		String path =PATH + res;
+		
+    	File dirFile=new File(PATH);
+    	if(!dirFile.exists()){
+    		dirFile.mkdir();
+    	}
+	
+		String str=null;
+		
+		if(!ssid_list.isEmpty()){
+			ssid_list.clear();
+		}
+        try {
+        	FileInputStream fis =new  FileInputStream (path);  
+        	BufferedReader in = new BufferedReader(new InputStreamReader(fis));  
+	        while( (str=in.readLine()) != null ){
+	        	ssid_list.add(Uri.decode(str)); 
+	        }
+	        in.close();
+        }
+        catch(FileNotFoundException e){   
+        }
+        catch(Exception e){   
+        }
+         
+	}
+
+	private void readPASS(String res){  
+		PATH =this.getFilesDir().getPath();
+		String path =PATH + res;
+		
+    	File dirFile=new File(PATH);
+    	if(!dirFile.exists()){
+    		dirFile.mkdir();
+    	}
+	
+		String str=null;
+		
+		if(!pass_list.isEmpty()){
+			pass_list.clear();
+		}
+        try {
+        	FileInputStream fis =new  FileInputStream (path);  
+        	BufferedReader in = new BufferedReader(new InputStreamReader(fis));  
+	        while( (str=in.readLine()) != null ){
+	        	pass_list.add(Uri.decode(str)); 
+	        }
+	        in.close();
+        }
+        catch(FileNotFoundException e){   
+        }
+        catch(Exception e){   
+        }
+         
+	}	
+	
+	
+ private void writeSSID(String res){   
+		PATH =this.getFilesDir().getPath();
+		String path =PATH + res;
+        
+    	File dirFile=new File(PATH);
+    	if(!dirFile.exists()){
+    		dirFile.mkdir();
+    	}
+    	
+		int len = ssid_list.size();
+		File write = new File(path);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(write));
+			for(int i=0; i<len; i++){ 
+				bw.write(Uri.encode(ssid_list.get(i))+"\r\n");
+			} 
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	 
+	}
+ private void writePASS(String res){   
+		PATH =this.getFilesDir().getPath();
+		String path =PATH + res;
+		
+    	File dirFile=new File(PATH);
+    	if(!dirFile.exists()){
+    		dirFile.mkdir();
+    	}
+    	
+		int len = pass_list.size();
+		File write = new File(path);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(write));
+			for(int i=0; i<len; i++){ 
+				bw.write(Uri.encode(pass_list.get(i))+"\r\n");
+			} 
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	 
 	}
 }

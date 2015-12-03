@@ -1,6 +1,6 @@
 <resources>
 
-<string name="app_name">Doit智能排插</string>
+<string name="app_name">Doit排插</string>
      <string name="set_id">设备ID匹配</string>
     <string name="set_gps">登               录 </string>
     <string name="wifi">选择WIFI</string>
@@ -28,8 +28,7 @@
      <string name="str_esp">一键配置</string> 
           <string name="str_peizhi">手工配置</string> 
        <string name="str_my_device">我的设备</string> 
-       <string name="str_bendi">本地模式</string>        
-           <string name="retry">重新连接</string>
+       <string name="str_bendi">本地模式</string>   
        
            <string name="str_tip1">1.确定手机已经连接WiFi</string>       
             <string name="str_tip2">2.WiFi模块上电LED亮后，请短按配置按钮</string>      

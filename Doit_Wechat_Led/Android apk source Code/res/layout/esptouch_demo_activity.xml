@@ -89,6 +89,35 @@
         </EditText>
     </LinearLayout>
     
+    
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        		    			android:layout_marginLeft ="15.0dip"
+			android:layout_marginRight ="15.0dip" 
+			   android:layout_marginTop="50dip"
+        android:orientation="vertical" >
+  
+        <Button
+            android:id="@+id/btnConfirm" 
+            android:background="@drawable/bt"
+            android:text="开始" 
+            android:layout_width ="fill_parent" 
+			android:layout_height ="50dp" 
+			android:gravity ="center"
+			android:textSize ="24dp"  />
+   
+
+    </LinearLayout>   
+    
+    
+     
+     
+     
+     
+     
+     
+     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -145,31 +174,6 @@
             />
     </LinearLayout>
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        		    			android:layout_marginLeft ="15.0dip"
-			android:layout_marginRight ="15.0dip" 
-        android:orientation="vertical" >
- 
-      <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp" 
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btnConfirm" 
-            android:background="@drawable/bt"
-            android:text="@string/button_ok" 
-            android:layout_width ="fill_parent" 
-			android:layout_height ="50dp" 
-			android:gravity ="center"
-			android:textSize ="24dp"  />
 
-         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="8dp" 
-            android:textSize="12sp" />    
-
-    </LinearLayout>
 
 </LinearLayout>

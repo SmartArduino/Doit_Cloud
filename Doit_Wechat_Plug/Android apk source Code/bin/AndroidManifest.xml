@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
     
      
@@ -29,7 +29,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     
-    
+     
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+       
     
      <!-- Don't require camera, as this requires a rear camera. This allows it to work on the Nexus 7 -->
     <uses-feature
@@ -90,7 +95,10 @@
        <activity android:name="com.example.esptouch.demo_activity.EsptouchDemoActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
          <activity android:name=".WifiListActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
         <activity android:name=".SendWifiKeyActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
-     
+          <activity android:name=".EasyLinkActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".TipTwoActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden"></activity>
+             
+           
        
        
        <activity

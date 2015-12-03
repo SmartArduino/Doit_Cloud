@@ -1,5 +1,14 @@
 package com.example.esptouch.demo_activity;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.platset.R; 
@@ -15,6 +24,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,7 +41,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EsptouchDemoActivity extends Activity implements OnClickListener {
-
+    private String PATH;
+    private String FAVOSSIDPATH ="/ESP8266ssid.xml";
+    private String FAVOPASSPATH ="/ESP8266pass.xml";
+    
+    private List<String> ssid_list = new ArrayList<String>(); 
+    private List<String> pass_list = new ArrayList<String>(); 
+	   private String str_ssid="",str_pass="";
+	    private String str_ssid_FLAG="",str_pass_FLAG="";
+		private int index;
+		
 	private static final String TAG = "EsptouchDemoActivity";
 
 	private TextView mTvApSsid;
@@ -51,7 +70,8 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		 requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		setContentView(R.layout.esptouch_demo_activity);
-
+		readSSID(FAVOSSIDPATH);
+	    readPASS(FAVOPASSPATH);
 		mWifiAdmin = new EspWifiAdminSimple(this);
 		mTvApSsid = (TextView) findViewById(R.id.tvApSssidConnected);
 		mEdtApPassword = (EditText) findViewById(R.id.edtApPassword);
@@ -86,6 +106,17 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 			mTvApSsid.setText(apSsid);
 		} else {
 			mTvApSsid.setText("");
+		}
+		index=-1;
+		int len = ssid_list.size();
+		for(int i=0; i<len; i++){
+			if(apSsid.equals(ssid_list.get(i))){ 
+				mEdtApPassword.setText(pass_list.get(i)); 
+				str_ssid_FLAG = apSsid;
+				str_pass_FLAG = pass_list.get(i);
+				index = i;
+				i=len;
+			}
 		}
 		// check whether the wifi is connected
 		boolean isApSsidEmpty = TextUtils.isEmpty(apSsid);
@@ -123,6 +154,8 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 					Log.d(TAG, "mBtnConfirm is clicked, mEdtApSsid = " + apSsid
 							+ ", " + " mEdtApPassword = " + apPassword);
 				}
+				str_ssid = apSsid;
+				str_pass = apPassword;
 				new EsptouchAsyncTask3().execute(apSsid, apBssid, apPassword,
 						isSsidHiddenStr, taskResultCountStr);
 			}
@@ -324,45 +357,50 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 			IEsptouchResult firstResult = result.get(0);
 			// check whether the task is cancelled and no results received
 			if (!firstResult.isCancelled()) {
-				int count = 0;
-				// max results to be displayed, if it is more than maxDisplayCount,
-				// just show the count of redundant ones
-				final int maxDisplayCount = 5;
-				// the task received some results including cancelled while
-				// executing before receiving enough results
+//				int count = 0; 
+//				final int maxDisplayCount = 5; 
 				if (firstResult.isSuc()) {
-					
+			           try {  
+			          	    if(str_ssid_FLAG.equals(str_ssid)){
+			          	    	if(!str_pass_FLAG.equals(str_pass)){
+			          		    	if(str_ssid.length()>0 && str_pass.length()>0 && index!=-1){
+			    	              	    ssid_list.set(index, str_ssid);
+			    	              	    pass_list.set(index, str_pass);
+			    	  				    writeSSID(FAVOSSIDPATH);
+			    	  				    writePASS(FAVOPASSPATH);
+			              	    	}
+			          	    	}
+			          	    }else{
+			          	    	if(str_ssid.length()>0 && str_pass.length()>0){
+				              	    ssid_list.add(str_ssid);
+				              	    pass_list.add(str_pass);
+				  				    writeSSID(FAVOSSIDPATH);
+				  				    writePASS(FAVOPASSPATH);
+			          	    	}
+			          	    }
+	    	            } catch (Exception e) {  
+	    	                // TODO Auto-generated catch block  
+	    	                e.printStackTrace();  
+	    	            } 
+	
+	          	    
+	            	   
 					  new AlertDialog.Builder(EsptouchDemoActivity.this)
 			          .setIcon(android.R.drawable.ic_dialog_info)
 			          .setTitle("提示")
 			          .setMessage("配置成功!") 
 			          .setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			              public void onClick(DialogInterface dialog, int whichButton) {
-							    dialog.dismiss();    
-							    finish();
+ 
+				            	dialog.dismiss();    
+								finish();
 			              }
-			          }).show();
-					  
-					  
-//					StringBuilder sb = new StringBuilder();
-//					for (IEsptouchResult resultInList : result) {
-//						sb.append("Esptouch success, bssid = "
-//								+ resultInList.getBssid()
-//								+ ",InetAddress = "
-//								+ resultInList.getInetAddress()
-//										.getHostAddress() + "\n");
-//						count++;
-//						if (count >= maxDisplayCount) {
-//							break;
-//						}
-//					}
-//					if (count < result.size()) {
-//						sb.append("\nthere's " + (result.size() - count)
-//								+ " more result(s) without showing\n");
-//					}
-//					mProgressDialog.setMessage(sb.toString());
-				} else {
-//					mProgressDialog.setMessage("Esptouch fail");
+			          }).show();  
+				} else { 
+					
+					 str_ssid = null;
+					 str_pass = null;
+					 
 					  new AlertDialog.Builder(EsptouchDemoActivity.this)
 			          .setIcon(android.R.drawable.ic_dialog_info)
 			          .setTitle("提示")
@@ -375,5 +413,109 @@ public class EsptouchDemoActivity extends Activity implements OnClickListener {
 				}
 			}
 		}
+	}
+	
+	private void readSSID(String res){  
+		PATH =this.getFilesDir().getPath();
+		String path =PATH + res;
+		
+    	File dirFile=new File(PATH);
+    	if(!dirFile.exists()){
+    		dirFile.mkdir();
+    	}
+	
+		String str=null;
+		
+		if(!ssid_list.isEmpty()){
+			ssid_list.clear();
+		}
+        try {
+        	FileInputStream fis =new  FileInputStream (path);  
+        	BufferedReader in = new BufferedReader(new InputStreamReader(fis));  
+	        while( (str=in.readLine()) != null ){
+	        	ssid_list.add(Uri.decode(str)); 
+	        }
+	        in.close();
+        }
+        catch(FileNotFoundException e){   
+        }
+        catch(Exception e){   
+        }
+         
+	}
+
+	private void readPASS(String res){  
+		PATH =this.getFilesDir().getPath();
+		String path =PATH + res;
+		
+    	File dirFile=new File(PATH);
+    	if(!dirFile.exists()){
+    		dirFile.mkdir();
+    	}
+	
+		String str=null;
+		
+		if(!pass_list.isEmpty()){
+			pass_list.clear();
+		}
+        try {
+        	FileInputStream fis =new  FileInputStream (path);  
+        	BufferedReader in = new BufferedReader(new InputStreamReader(fis));  
+	        while( (str=in.readLine()) != null ){
+	        	pass_list.add(Uri.decode(str)); 
+	        }
+	        in.close();
+        }
+        catch(FileNotFoundException e){   
+        }
+        catch(Exception e){   
+        }
+         
+	}	
+	
+	
+ private void writeSSID(String res){   
+		PATH =this.getFilesDir().getPath();
+		String path =PATH + res;
+        
+    	File dirFile=new File(PATH);
+    	if(!dirFile.exists()){
+    		dirFile.mkdir();
+    	}
+    	
+		int len = ssid_list.size();
+		File write = new File(path);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(write));
+			for(int i=0; i<len; i++){ 
+				bw.write(Uri.encode(ssid_list.get(i))+"\r\n");
+			} 
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	 
+	}
+ private void writePASS(String res){   
+		PATH =this.getFilesDir().getPath();
+		String path =PATH + res;
+		
+    	File dirFile=new File(PATH);
+    	if(!dirFile.exists()){
+    		dirFile.mkdir();
+    	}
+    	
+		int len = pass_list.size();
+		File write = new File(path);
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(write));
+			for(int i=0; i<len; i++){ 
+				bw.write(Uri.encode(pass_list.get(i))+"\r\n");
+			} 
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	 
 	}
 }

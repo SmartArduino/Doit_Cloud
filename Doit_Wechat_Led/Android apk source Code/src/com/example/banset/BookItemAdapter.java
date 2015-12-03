@@ -186,47 +186,12 @@ public class BookItemAdapter extends BaseAdapter{
 		
 		TextView sItemInfo =  (TextView) convertView.findViewById(R.id.sItemInfo); 
 		sItemInfo.setTag(position);
-		if(model.device_stat.equals("1")){
+		if(!model.device_stat.equals("0")){
 			sItemInfo.setBackgroundResource(R.drawable.online);
 		}else {
 			sItemInfo.setBackgroundResource(R.drawable.offline);
 		}
-//		sItemInfo.setOnClickListener(new View.OnClickListener() {
-//						////@Override
-//						public void onClick(View v) { 
-//							favoView = (TextView) v;
-//							index = Integer.parseInt(v.getTag().toString());
-//							BookModel model = mModels.get(index);
-//							
-//							if(model.favo_flag==1){
-// 
-//							}else if (model.favo_flag==-1){
-//				        		new AlertDialog.Builder(mContext) 
-//								.setTitle(" Tips")
-//				                .setMessage(" Add this template to favorite ?")
-//				                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-//				                    public void onClick(DialogInterface dialog, int which) {
-//				                    	 
-//				                    }
-//				                })
-//				                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-//				                    public void onClick(DialogInterface dialog, int whichButton) { 
-//										BookModel model = mModels.get(index); 
-//										model.favo_flag = 1; 
-//										mModels.set(index,model);
-//										
-//										TextView sItemInfo =  (TextView) favoView.findViewById(R.id.sItemInfo); 
-//									    sItemInfo.setBackgroundResource(R.drawable.favo_bt_style);
-//										
-//										new addFavo().start(); 
-//				                     }
-//				                }).show();
-//							}
-//						}
-//		});
-        
-		
-		
+  
 		syncImageLoader.loadImage(position,model.device_img,imageLoadListener);
 		return  convertView;
 	}

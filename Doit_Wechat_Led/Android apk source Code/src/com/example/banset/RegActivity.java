@@ -152,10 +152,14 @@ public class RegActivity extends Activity implements OnClickListener{
 			        			  
 			    	   	 MyHttp myGet = new MyHttp(uri);
 			    	     String des =  myGet.httpPost();
-			    	     
+			    	  
 			    	 	 if(des.length()>0){
 			    	 		  JSONObject jsonEvents =  new JSONObject(des);
 			    	 		  res= jsonEvents.getString("ret"); 
+			    	 		  
+			    	 		  String dd = Uri.decode(jsonEvents.getString("desc"));
+			    	 		  
+			    	 		  
 			    	 		  if(res.equals("1")){
 			    	 			  ////////////////////////////
 			    	 			   flag=true;
