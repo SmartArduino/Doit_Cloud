@@ -67,7 +67,8 @@ function parseData(scktype,conn,data)
 	end
 --订阅设备对话的topic	
 	if string.find(data,'cmd=subscribe&res=1') ~=nil then
-			conn:send('cmd=m2m_chat&device_id='..cfg.id..'&device_key='..cfg.key..'&topic='..cfg.id..'_chat\r\n');
+		local str = 'cmd=m2m_chat&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'&topic='..cfg.device_id..'_chat\r\n'
+		conn:send(str)
 --处理远程控制命令
 	elseif string.find(data,'&message=') ~=nil then
 		local st;

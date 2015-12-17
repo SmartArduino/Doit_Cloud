@@ -1,0 +1,131 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    
+           <TextView
+        android:id="@+id/bendi_title" 
+        android:text="@string/str_bendi"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+           
+           
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+         android:layout_below="@id/bendi_title"
+        android:paddingTop="10dp"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/but1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text1"
+        android:gravity="center"
+        android:text="@string/retry"
+        android:textSize="25sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/mainlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/text1"
+        android:visibility="invisible" >
+
+        <RelativeLayout
+            android:id="@+id/slayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/but_l_speenUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@drawable/l_speenup" />
+
+            <Button
+                android:id="@+id/but_r_speenUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/r_speenup" />
+            
+            <SeekBar 
+                android:id="@+id/seek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/but_l_speenUp"
+                android:layout_toLeftOf="@id/but_r_speenUp"
+                android:max="1023"
+                android:progress="500"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/clayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/slayout" >
+
+            <Button
+                android:id="@+id/but_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/stop" />
+
+            <Button
+                android:id="@+id/but_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"
+                android:layout_toLeftOf="@id/but_center"
+                android:background="@drawable/left" />
+
+            <Button
+                android:id="@+id/but_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"
+                android:layout_toRightOf="@id/but_center"
+                android:background="@drawable/right" />
+
+            <Button
+                android:id="@+id/but_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/but_center"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/up" />
+
+            <Button
+                android:id="@+id/but_below"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/but_center"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/down" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

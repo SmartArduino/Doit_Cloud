@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android ="http://schemas.android.com/apk/res/android"
+xmlns:tools= "http://schemas.android.com/tools"
+android:layout_width= "match_parent"
+android:layout_height= "match_parent"
+android:background= "@drawable/bg1" >
+
+ 
+
+       <TextView
+        android:id="@+id/loginbutton" 
+        android:text="@string/str_login"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+       
+<LinearLayout
+android:id ="@+id/input"
+android:layout_width ="fill_parent"
+android:layout_height ="wrap_content"
+android:layout_below ="@id/loginbutton"
+android:layout_marginTop="15dip"
+android:layout_marginLeft ="55.0dip"
+android:layout_marginRight ="55.0dip" 
+android:orientation ="vertical" >
+
+     <TextView 
+        android:text="@string/str_uid"
+        android:layout_height="wrap_content" 
+        android:layout_width="wrap_content"   
+        android:textSize="16sp" 
+  	    android:textColor="#000000" 
+        android:gravity="left|bottom" 
+      />
+     
+     
+<LinearLayout
+android:layout_width ="fill_parent"
+android:layout_height ="44.0dip" 
+android:gravity ="center_vertical"
+android:orientation ="horizontal" >
+
+ 
+<EditText
+android:id ="@+id/uid"
+android:layout_width ="0dp"
+android:layout_height ="fill_parent"
+android:layout_weight ="1" 
+style="@style/MMEditText" 
+android:ems ="10"  
+android:imeOptions ="actionDone"
+android:singleLine ="true"
+android:textSize ="16sp" >
+
+<requestFocus />
+</EditText>
+
+</LinearLayout>
+ 
+
+
+     <TextView 
+        android:text="@string/str_password"
+        android:layout_height="wrap_content" 
+        android:layout_width="wrap_content"   
+        android:textSize="16sp" 
+  	    android:textColor="#000000" 
+        android:gravity="left|bottom" 
+      />
+     
+     
+<EditText
+android:id ="@+id/password"
+android:layout_width ="fill_parent"
+android:layout_height ="44.0dip" 
+android:gravity ="center_vertical"
+android:inputType ="textPassword"
+android:maxLength ="16" 
+ style="@style/MMEditText" 
+android:maxLines ="1"
+android:textColor ="#ff1d1d1d"
+android:textColorHint ="#ff666666"
+android:textSize ="16.0sp" />
+
+
+
+</LinearLayout >
+
+<Button
+android:id ="@+id/buton1"
+android:layout_width ="fill_parent"  
+android:layout_height ="50dp"
+android:layout_marginLeft ="55.0dip"
+android:layout_marginRight ="55.0dip" 
+android:layout_marginTop ="20.0dip"
+android:layout_below ="@+id/input"
+android:gravity ="center"
+android:textSize ="20dp"
+android:text = "@string/str_login" />
+
+<RelativeLayout
+android:id ="@+id/relative"
+android:layout_width ="fill_parent"
+android:layout_height ="wrap_content"
+android:layout_alignLeft ="@+id/input"
+android:layout_alignRight ="@+id/input"
+android:layout_below ="@id/buton1" >
+
+<CheckBox
+android:id ="@+id/auto_save_password"
+android:layout_width ="wrap_content"
+android:layout_height ="wrap_content"
+android:layout_alignParentLeft ="true"
+android:layout_centerVertical="true"
+android:enabled="true"
+android:checked ="true"  
+android:drawablePadding ="4.0dip"
+android:text = "@string/str_rem"
+android:textColor ="#000000" 
+android:textSize ="12.0sp" />
+
+<Button
+android:id ="@+id/regist"
+android:layout_width ="wrap_content"
+android:layout_height ="wrap_content"
+android:layout_alignParentRight ="true" 
+android:clickable ="true"
+android:gravity ="center"
+android:paddingLeft ="8.0dip"
+android:paddingRight ="18.0dip"
+android:text = "@string/str_reg"
+android:textColor ="#000000" 
+android:textSize ="12.0sp" />
+</RelativeLayout >
+
+  
+<Button
+android:id ="@+id/buton2"
+android:layout_width ="fill_parent"  
+android:layout_height ="50dp"
+android:layout_marginLeft ="55.0dip"
+android:layout_marginRight ="55.0dip" 
+android:layout_alignParentBottom="true"
+android:layout_marginBottom="55dip"
+android:gravity ="center"
+android:textSize ="20dp"
+android:text = "@string/str_bendi" />
+
+</RelativeLayout>

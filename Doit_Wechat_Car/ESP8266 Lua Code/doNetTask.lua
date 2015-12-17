@@ -8,7 +8,7 @@ function s_output(d)
 	tmr.alarm(4,100,0,function()
 		--print('Uart: '..sBuf)
 		if flagConnected==true then
-			local str = 'cmd=m2m_chat&device_id='..cfg.id..'&device_key='..cfg.key..'&topic='..cfg.id..'_chat&message='..sBuf..'\r\n'
+			local str = 'cmd=m2m_chat&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'&topic='..cfg.device_id..'_chat&message='..sBuf..'\r\n'
 			local str2="m2m_chat:("..(tmr.now()/1000).."ms) "
 			conn:send(str)
 			print(str2..str)
@@ -33,11 +33,11 @@ tmr.alarm(0, 5000, 1, function()
 	print("Try connect Server")
 	conn = nil
 	conn=net.createConnection(net.TCP, false) 
-	conn:connect(cfg.port,cfg.domain);
+	conn:connect(cfg.server_port,cfg.server_addr);
 	conn:on("connection",function(c) 
 		print("TCPClient:conneted to server");
 		flagConnected = true;
-		c:send('cmd=subscribe&device_id='..cfg.id..'&device_key='..cfg.key..'\r\n')
+		c:send('cmd=subscribe&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'\r\n')
 		end)
 	conn:on("disconnection",function(c) 
 		flagConnected = false;
@@ -53,7 +53,7 @@ tmr.alarm(0, 5000, 1, function()
 		cnt=cnt+1;--保持心跳
 		if cnt>=5*60/5 then
 		cnt = 0;
-		local str = 'cmd=keep&device_id='..cfg.id..'&device_key='..cfg.key..'\r\n'
+		local str = 'cmd=keep&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'\r\n'
 		local str2="keep:("..(tmr.now()/1000).."ms)"
 		conn:send(str)
 		print(str2..str)
