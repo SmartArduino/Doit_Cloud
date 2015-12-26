@@ -5,7 +5,11 @@ function parseData(scktype,skt,data)
 		print('Udp parseData:'..data)
 		if string.find(data,'cmd=ping') ~=nil then
 			if wifi.sta.getip() ~=nil then 
+				if wifi.sta.getip()=='0.0.0.0' then
+				net.send(skt,'cmd=pong&sta_ip=&host_ip=192.168.4.1')
+				else
 				net.send(skt,'cmd=pong&sta_ip='..wifi.sta.getip()..'&host_ip=192.168.4.1')
+				end
 			else
 				net.send(skt,'cmd=pong&sta_ip=&host_ip=192.168.4.1')
 			end
@@ -90,6 +94,7 @@ function split(str, delimiter)
     return result
 end
 
+print('parseData.lua')
 --PWM初始化
 ledR=13
 ledB=14

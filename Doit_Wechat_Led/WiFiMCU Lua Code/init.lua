@@ -1,7 +1,7 @@
 
 print("WiFiMCU Started")
-
-dofile('start.lua')
+dofile('lua2lc.lua')
+dofile('start.lc')
 --[[tmr.alarm(0,3000,0,function() 
 local luaFile = {"doNetTask.lua","httpserver.lua","udpserver.lua","parseData.lua","start.lua",}
 for i, f in ipairs(luaFile) do

@@ -1,3 +1,4 @@
+print('udpserver.lua')
 if sckUdpSrv ~= nil then
 	net.close(sckUdpSrv);sckUdpSrv = nil
 end

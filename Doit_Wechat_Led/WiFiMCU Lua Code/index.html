@@ -1,55 +1,125 @@
-<html><head><title>Doit Arduino</title>
+﻿<html><head><title>Doit Wechat Setting</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 <style>
 body{max-width:640px;width:100%;margin:0 auto;font-family: Arial,sans-serif;font-size: 15px;}
 input,select,button{font-family:inherit;font-size:inherit;}
-form{width:90%;margin: 1em auto;line-height: 2.4em;padding:5%;box-shadow: 0 0 10px rgba(0,0,0,.5);border-radius: 10px;}
+form{background:#f7f7f7;width:90%;margin: 1em auto;line-height: 2.4em;padding:5%;box-shadow: 0 0 10px rgba(0,0,0,.5);border-radius: 10px;}
 .button_group{text-align:center;margin-top: 1em;}
 .control_group label{width:45%;display: inline-block;text-align:right;padding-right: 5%;}
 .control_group input{max-width:45%;}
+.co{ color:#000080;}
+.bk{ background-color:#F0F0F0;}
 button{border:none;border-radius:4px;line-height:2em;color:#fff;margin-right: 1em;}
 button.green{background:#45c01a;}
 button.gray{background:#666;}
+button.blue{background:#466;}
 </style>
-<script>
-function $(id) { return document.getElementById(id); };
-function settingsCallback(o) {
-if ($('txtSTASSID')) $('txtSTASSID').value = o.stassid;
-if ($('txtSTAPSW')) $('txtSTAPSW').value = o.stapsw;
-if ($('baud')) $('baud').value = o.baud;
-if ($('staip')) $('staip').value = o.staip;
-if ($('staMac')) $('staMac').value = o.stamac;
-};</script>
+<script type="text/javascript">
+var xmlAplist=null; 
+var xmlSubmit=null;
+var xmlPara=null;
+function newxmlAplist(){
+xmlAplist= window.XMLHttpRequest? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+}
+function newxmlSubmit(){
+xmlSubmit= window.XMLHttpRequest? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+}
+function newxmlPara(){
+xmlPara= window.XMLHttpRequest? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHttp");
+}
+function retAplist(){
+if(xmlAplist.readyState == 4 && xmlAplist.status == 200){
+var res= xmlAplist.responseText;
+	if(res.length>0){
+		document.getElementById("sta_list").options.length=0;
+		var a_list=new Array();
+		a_list=res.split("^$&");
+		for (i=0;i<a_list.length ;i++ ) 
+		{
+			if(a_list[i].length>0)
+			{
+			var t=a_list[i];
+			document.getElementById("sta_list").options.add(new Option(t,t));
+}}}}}
+
+function retSubmit()
+{if(xmlSubmit.readyState == 4 && xmlSubmit.status == 200){
+	alert(xmlSubmit.responseText);
+}}
+function retPara()
+{if(xmlPara.readyState == 4 && xmlPara.status == 200){
+	res= xmlPara.responseText;
+	var d=new Array();
+	d=res.split("^$&");
+	document.getElementById("staip").value=d[0];
+	document.getElementById("stamac").value=d[1];
+	document.getElementById("id").value=d[2];
+	document.getElementById("key").value=d[3];
+	document.getElementById("ssid").value=d[4];
+	document.getElementById("psw").value=d[5];
+}}
+
+function get_ap_list(){
+newxmlAplist()
+xmlAplist.onreadystatechange = retAplist ;
+xmlAplist.open("GET", "/ap_list.do", true);
+xmlAplist.send( null );
+}
+function get_para(){
+newxmlPara()
+xmlPara.onreadystatechange = retPara;
+xmlPara.open("GET", "/para_list.do", true);
+xmlPara.send( null );
+}
+function submitForm() {
+	var ssid=document.getElementById('ssid').value;
+	var psw=document.getElementById('psw').value;
+	var id=document.getElementById('id').value;
+	var key=document.getElementById('key').value;
+	var para1="ssid='"+ssid+"',\n" +"psw='"+psw+"',\n";
+	var para2="device_id='"+id+"',\n" +"device_key='"+key+"',\n";
+	newxmlSubmit()
+	xmlSubmit.onreadystatechange = retSubmit;
+	xmlSubmit.open("POST", "/submit", true);
+	xmlSubmit.send(para1+para2);
+}
+</script>
 </head>
 <body>
-<form id='frmSetting' method='POST' action='para.cgi'>
+<form name="hotform" id="hotform" action='' method="post" class='co'>
+<div class="button_group">
+<h2>Doit Wechat Setting</h2>
+</div>
 <label>WiFi Status: </label>
 <div class="control_group">
-	<label>STA IP:</label><input type='text' id='staip' name='staip' size='20' readonly />
-	<label>STA MAC:</label><input type='text' id='staMac' name='stamac' size='20' readonly />
+	<label >STA IP:</label><input class='bk' type='text' id='staip' name='staip' size='20' readonly />
+	<label>STA MAC:</label><input class='bk' type='text' id='stamac' name='stamac' size='20' readonly />
 </div>
-<label>Serial Setting: </label>
+<label>Device ID&Key: </label>
 <div class="control_group">
-	<label>Baud:</label><select id="baud" name="baud">
-		<option value="1200">1200</option>
-		<option value="2400">2400</option>
-        <option value="4800">4800</option>
-		<option value="9600">9600</option>
-        <option value="19200">19200</option>
-		<option value="38400">38400</option>
-		<option value="115200">115200</option>
-    </select>
+	<label>Device ID:</label><input type='text' id='id' name='id' size='20' placeholder="Enter Device ID"/>
+	<label>Device Key:</label><input type='text' id='key' name='key' size='20' placeholder="Enter Device Key"/>
 </div>
 <label>STA Setting: </label>
 <div class="control_group">
-	<label>STA SSID:</label><input type='text' id='txtSTASSID' name='stassid' size='20' placeholder="Enter SSID" />
-	<label>STA Password:</label><input type='text' id='txtSTAPSW' name='stapsw' size='20' placeholder="Password" />
+	<label>STA SSID:</label><input type='text' id='ssid' name='ssid' size='20' placeholder="Enter SSID" />
+	<label>AP List:</label><select name="sta_list" id="sta_list" style="width:160" onchange="document.getElementById('ssid').value=this.value;"/>
+	</select>
+	<div class="control_group"><label>Scan:</label><button class="blue" style="width:100" onclick="get_ap_list();return false;" >Refresh</button></div>
+	<label>STA Password:</label><input type='text' id='psw' name='psw' size='20' placeholder="Password" />
 </div>
 <div class="button_group">
-<button class="green" onclick="this.form.submit();" >Submit</button>
+	<button class="green" style="width:173" onclick="submitForm();return false;">Submit</button>
 </div>
 <div style='text-align:center;'>
-Copyright &copy; Doit.am 2015(V1.1), All Rights Reserved
+Visit <a href="http://wechat.doit.am/">wechat.doit.am </a> for more help
+</div>
+<div style='text-align:center;'>
+Copyright &copy; <a href="http://www.doit.am/">www.doit.am </a> 2015(WiFiMCU v1.0), All Rights Reserved
 </div>
 </form>
+<script type='text/javascript'>
+get_ap_list();
+get_para();
+</script></body></html>

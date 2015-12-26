@@ -1,11 +1,7 @@
 cfg={
-device_id='DOIT-SN-124CA-32736',
-device_key='e24c6869e535dd6d2bc280cc759bfe6a',	 
+device_id='DOIT-SN-67A0-70334',
+device_key='3aad0f59af42691eed72769bda7c34f2',	 
 server_addr='s.doit.am',
---server_addr='115.29.109.104',
 server_port=8810,
---server_port=6593,
 apssid='Doit_ESP_',
-appsw='',
-sensor='spd',
 }

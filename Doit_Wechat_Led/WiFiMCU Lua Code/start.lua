@@ -8,12 +8,14 @@
 	前5s内，LED灯快闪（0.1s亮，0.1s灭），此时短按Boot键超过3秒进入Easylink，led灯变为0.3秒亮0.3秒灭
 	如果超过3分钟没有配置成功，模块重启
 3，	Webserver配置：WiFiMCU启动5s后正常发出ap信号，启动httpserver
-	在httpserver启动后，WiFiMCU发出wifi，ssid为：“Doit_ESP_xxxxxx”，其中xxxxxx为芯片mac后六位。使用笔记本或者手机连接该ssid，密码为空，然后使用浏览器设置，
+	在httpserver启动后，WiFiMCU发出wifi，ssid为：“Doit_ESP_xxxxxx”，
+	其中xxxxxx为芯片mac后六位。使用笔记本或者手机连接该ssid，密码为空，然后使用浏览器设置，
 	地址为11.11.11.1
 4, 	WiFiMCU开发板上LED灯常亮表示开发板已经连接上无线路由器
 5,  D1为低电平时进入编译模式，否则直接运行]]
 --tmr0 检查boot按键，sta连接情况
 --tmr1 smartconfig
+
 function resetCfgSTA()
 	file.remove("configSTA.lua")
 	file.open("configSTA.lua","w+")
@@ -24,25 +26,26 @@ function resetCfgSTA()
 	file.writeline("}")
 	file.close()
 end
-function saveCfgSTA(ssid,psw,baud)
+function saveCfgSTA(ssid,psw)
 	file.remove("configSTA.lua")
 	file.open("configSTA.lua","w+")
 	file.writeline("cfgSTA={")
 	file.writeline("ssid='"..ssid.."',")
 	file.writeline("psw='"..psw.."',")
-	file.writeline("baud='"..baud.."',")
 	file.writeline("}")
 	file.close()
 end
 
 function startAPSTA()
+	print('startAPSTA:heapsize:'..mcu.mem())
 	local _,_,_,_,_,mac,_=wifi.ap.getipadv()
-	local cfg={ssid = cfg.apssid..string.upper(string.sub(mac,7,12)),pwd = cfg.appsw}
+	local cfg={ssid = cfg.apssid..string.upper(string.sub(mac,7,12)),pwd =""}
 	wifi.startap(cfg)
 	cfg={ssid = cfgSTA.ssid,pwd = cfgSTA.psw}
 	wifi.startsta(cfg)
 	cfg=nil;mac=nil;
 	collectgarbage()
+	print('startAPSTA:heapsize:'..mcu.mem())
 end
 
 function startSmartConfig(mode)
@@ -54,7 +57,7 @@ function startSmartConfig(mode)
 		if(ssid ~=nil) then
 			print("Success! SSID: "..ssid.." Password: "..psw)
 			cfgSTA.ssid = ssid;cfgSTA.psw = psw
-			saveCfgSTA(ssid,psw,cfgSTA.baud)
+			saveCfgSTA(ssid,psw)
 			print("Module will restart")
 			mcu.reboot()
 		else
@@ -70,7 +73,7 @@ function startSmartConfig(mode)
 			mcu.reboot()
 		end
 		if mode==0 then --easylink mode
-			gpio.toggle(17)
+			 toggleRGBLED()
 		else --air kiss mode
 			ledCnt = ledCnt + 1
 			if (ledCnt%3 == 0) then ledCnt2 = ledCnt2 + 1;end
@@ -86,12 +89,10 @@ end
 
 function checkKey()
 	if keyCnt >= 30 then --long pressed
-		if(sckTcpSrv ~=nil) then sckTcpSrv:close();sckTcpSrv = nil;collectgarbage() end
 		print("checkKey long pressed keyCnt: "..keyCnt)
 		keyCnt = 0
 		startSmartConfig(1)
 	elseif keyCnt>=3 and gpio.read(0) ==1 then --short pressed
-		if(sckTcpSrv ~=nil) then sckTcpSrv:close();sckTcpSrv = nil;collectgarbage() end
 		print("checkKey short pressed keyCnt: "..keyCnt)
 		keyCnt = 0
 		startSmartConfig(0)
@@ -125,7 +126,6 @@ gpioInit()
 
 tryCnt=0
 sckTcpSrv=nil
-
 --[[if file.open("httpserver.lc") then
 	file.close("httpserver.lc")
 	dofile('httpserver.lc')
@@ -140,23 +140,24 @@ tmr.start(0,100,function()
 	end
 
 	gpio.toggle(17)
+
 	if tryCnt==5*10 then 
 		startAPSTA()
+		dofile('parseData.lc')
+		dofile('udpserver.lc')
+		dofile('httpserver.lc')
 	end
 	if tryCnt >=6*10  then		
 		if wifi.sta.getip() ~= '0.0.0.0' then
 			tmr.stop(0);
-			tryCnt=nil;keyCnt=nil
+			tryCnt=nil;keyCnt=nil;flagRGBLED=nil
 			--if(sckTcpSrv ~=nil) then sckTcpSrv:close();sckTcpSrv = nil;collectgarbage() end
 			print("Connected:"..wifi.sta.getip())
-			print("mem:"..mcu.mem())
 			gpio.write(17,gpio.LOW)
 			collectgarbage()
-			dofile('parseData.lua')
-			dofile('udpserver.lua')
 			print("mem:"..mcu.mem())
 			print("dofile doNetTask")
-			dofile("doNetTask.lua")
+			dofile("doNetTask.lc")			
 		end
 	end
    end)
