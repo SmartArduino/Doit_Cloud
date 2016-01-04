@@ -35,7 +35,7 @@ tmr.start(0, 1000, function()
 		net.on(skt,"connect",function(skt) 
 			print("TCPClient:conneted to server");
 			flagConnected = true;
-			net.send(skt,'cmd=subscribe&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'\\r\\n')
+			net.send(skt,'cmd=subscribe&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'\r\n')
 			end)
 		net.on(skt,"disconnect",function(skt) 
 			print("disconnect:skt:"..skt)
@@ -57,7 +57,7 @@ tmr.start(0, 1000, function()
 	
 	if flagConnected == true then
 		if cnt%300==0 then
-			local str = 'cmd=keep&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'\\r\\n'
+			local str = 'cmd=keep&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'\r\n'
 			local str2="keep:("..(tmr.tick()/1000).."ms)"
 			net.send(skt,str)
 			print(str2..str)
