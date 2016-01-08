@@ -8,7 +8,7 @@ function s_output(d)
 	tmr.start(2,100,function()
 		--print('Uart: '..sBuf)
 		if flagConnected==true then
-			local str = 'cmd=m2m_chat&device_id='..cfg.device_id..'&device_key='..cfg.key..'&topic='..cfg.device_key..'_chat&message='..sBuf..'\\r\\n'
+			local str = 'cmd=m2m_chat&device_id='..cfg.device_id..'&device_key='..cfg.key..'&topic='..cfg.device_key..'_chat&message='..sBuf..'\r\n'
 			local str2="m2m_chat:("..(tmr.now()/1000).."ms) "
 			net.send(skt,str)
 			print(str2..str)

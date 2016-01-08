@@ -6,12 +6,12 @@ function parseData(scktype,skt,data)
 		if string.find(data,'cmd=ping') ~=nil then
 			if wifi.sta.getip() ~=nil then 
 				if wifi.sta.getip()=='0.0.0.0' then
-				net.send(skt,'cmd=pong&sta_ip=&host_ip=192.168.4.1')
+				net.send(skt,'cmd=pong&sta_ip=&host_ip=11.11.11.1')
 				else
-				net.send(skt,'cmd=pong&sta_ip='..wifi.sta.getip()..'&host_ip=192.168.4.1')
+				net.send(skt,'cmd=pong&sta_ip='..wifi.sta.getip()..'&host_ip=11.11.11.1')
 				end
 			else
-				net.send(skt,'cmd=pong&sta_ip=&host_ip=192.168.4.1')
+				net.send(skt,'cmd=pong&sta_ip=&host_ip=11.11.11.1')
 			end
 			return
 --处理ssid和psw
@@ -58,7 +58,7 @@ function parseData(scktype,skt,data)
 	end
 --订阅设备对话的topic	
 	if string.find(data,'cmd=subscribe&res=1') ~=nil then
-			net.send(skt,'cmd=m2m_chat&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'&topic='..cfg.device_id..'_chat\\r\\n');
+			net.send(skt,'cmd=m2m_chat&device_id='..cfg.device_id..'&device_key='..cfg.device_key..'&topic='..cfg.device_id..'_chat\r\n');
 --处理远程控制命令
 	elseif string.find(data,'&message=') ~=nil then
 		local st;
