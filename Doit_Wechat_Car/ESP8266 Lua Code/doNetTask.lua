@@ -1,7 +1,7 @@
 
 --uart  disable output
 --node.output(function(str) end,0)
-sBuf=""
+--[[sBuf=""
 function s_output(d)
 	sBuf = sBuf..d;
 	tmr.stop(4)
@@ -19,7 +19,7 @@ function s_output(d)
 	d=nil; 
 	collectgarbage();
 end
-uart.on("data",0,s_output, 0)
+uart.on("data",0,s_output, 0)]]
 
 print('doNetTask')
 tmr.stop(2) --stop keycheck
