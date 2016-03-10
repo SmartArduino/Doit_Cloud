@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<RelativeLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:background="@drawable/bg" 
+    >
+
+    <RelativeLayout 
+        	android:id="@+id/lay1" 
+        android:layout_width="match_parent"
+        android:layout_height="45dp" 
+        android:orientation="horizontal" >
+
+               <TextView
+        android:id="@+id/listtitle" 
+        android:text="@string/str_my_device"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+               
+               
+                        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="96dp"
+            android:layout_height="38dp" 
+            android:layout_alignParentRight="true" 
+            android:layout_centerVertical="true"
+              android:background="@drawable/bt"
+            android:layout_marginRight="3dp"    
+                    android:text="@string/str_add_device"
+            android:textColor="#000000"
+            />
+                        
+    </RelativeLayout>       
+       
+
+   <android.support.v4.widget.SwipeRefreshLayout  
+        android:id="@+id/id_swipe_ly"  
+            	    android:layout_below="@id/lay1" 
+    	android:divider="@drawable/driver" 
+        android:layout_width="match_parent"  
+        android:layout_height="match_parent" >  
+  
+	<ListView 
+		android:id="@+id/device_list"   
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"  
+    	android:fadingEdge="none" >
+  	</ListView> 
+  	
+    </android.support.v4.widget.SwipeRefreshLayout>          
+ 
+
+  	
+	
+</RelativeLayout>

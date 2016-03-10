@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"  
+    android:background="@drawable/bg2" 
+    tools:context=".WifiListActivity" >
+
+      <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" 
+                android:text="@string/wifi"
+                android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+         android:layout_alignParentTop="true"  
+         android:background="@drawable/b_u"
+          />
+                        
+       <TextView
+        android:id="@+id/title2"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" 
+         android:layout_alignParentBottom="true"  
+         android:background="@drawable/b_u"
+          />
+                              
+    <ListView
+        android:id="@+id/listView"
+        android:layout_below="@id/title"
+        android:layout_above="@id/title2"
+        android:divider="@drawable/driver" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</RelativeLayout>

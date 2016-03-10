@@ -1,0 +1,126 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background= "@drawable/bg2"
+    tools:context=".EasyLinkActivity" >
+
+                   <TextView
+        android:id="@+id/easylink_title" 
+        android:text="EasyLink"
+        android:layout_height="45dp"
+        android:background="@drawable/tab"
+        android:layout_alignParentTop="true"
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+                   
+                   
+                   
+                    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+           android:layout_marginTop="20dip"
+        			android:layout_marginLeft ="15.0dip"
+			android:layout_marginRight ="15.0dip"  
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tvApSsidtwo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tvApSsidTitle"
+            android:textSize="24sp" />
+
+                 <TextView 
+        android:layout_height="match_parent" 
+        android:layout_width="10dp"   
+      />   
+      
+        <TextView
+            android:id="@+id/wifissid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:ems="10"
+            android:singleLine="true" >
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+         android:layout_marginLeft ="15.0dip"
+			android:layout_marginRight ="15.0dip"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tvApPasswordtwo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tvPasswordTitle"
+         
+            android:textSize="24sp" />
+
+                    <TextView 
+        android:layout_height="match_parent" 
+        android:layout_width="10dp"   
+      />   
+        <EditText
+            android:id="@+id/wifipsw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text"
+            android:singleLine="true"
+            android:text=""
+            style="@style/MMEditText" 
+            tools:ignore="TextFields" >
+
+        </EditText>
+    </LinearLayout>
+    
+    
+    
+     
+       <RelativeLayout 
+            android:id="@+id/sssearch"
+          android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_marginLeft ="15.0dip"
+			android:layout_marginRight ="15.0dip" 
+        android:background="@drawable/bt"
+        android:layout_marginTop="50dip"
+        android:layout_gravity="center" 
+        >
+        
+       <TextView
+        android:id="@+id/b_text" 
+        android:text="@string/str_start"
+        android:layout_height="fill_parent"   
+        android:layout_width="fill_parent"   
+        android:textSize="20sp" 
+  	    android:textColor="#000000" 
+        android:gravity="center"
+      />
+                  
+                  
+        <ProgressBar  
+                    android:id="@+id/pb" 
+    android:layout_width="40dip"  
+    android:layout_height="40dip"  
+    android:layout_marginRight="5dip"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:alpha="0.0"
+    android:indeterminateDrawable="@drawable/progress_small"/> 
+
+
+       </RelativeLayout> 
+  
+        
+</LinearLayout>

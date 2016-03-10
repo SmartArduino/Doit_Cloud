@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <item type="drawable" name="bg">#80000000</item>
+    <item type="drawable" name="transparent">#00000000</item>
+    <item type="drawable" name="lightblue">#ffcfe1ed</item>
+    <item type="drawable" name="readmenu_btn_bg_f">#30ffffff</item>
+    <item type="drawable" name="readmenu_btn_bg_p">#50ffffff</item>
+    <item type="drawable" name="blackMask">#30000000</item>
+        <item type="drawable" name="huise">#afafb0</item>
+</resources>
