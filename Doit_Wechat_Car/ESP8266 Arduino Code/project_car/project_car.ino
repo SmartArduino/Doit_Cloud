@@ -1,6 +1,6 @@
 /*
   0， 上电：Doit微信开发板上电，前5秒等待配置阶段LED灯0.1s亮，0.1s灭; 5秒后1秒亮1秒灭尝试连接到sta
-  1,  smartconfig配置
+  1,  smartconfig配置https://github.com/SmartArduino/Doit_Cloud/tree/master/Doit_Wechat_Car/ESP8266%20Arduino%20Code/project_car
   前5s内，LED灯快闪（0.1s亮，0.1s灭），此时短按Flash或者key键进入smartconfig配置模式，led灯0.3秒亮0.3秒灭
   在这种情况下可使用微信“四博智联研发部”公众号，wifi配置功能可实现wifi配置上网
   或者使用ESP-touch app软件进行配置。wifi配置功能可实现wifi配置上网。
@@ -13,6 +13,9 @@
   使用webserver可以对开发板的固件进行OTA升级。地址为：http;//xxx.xxx.xxx.xxx:8080，或者在web配置页面连接过去。
   5，恢复出厂设置
   启动后，长按Flash或者Key键超过3秒钟，恢复出厂设置
+  6, 特别说明：由于ESPDuion的电机驱动板使用了PinPWMA（GPIO3)和PinDirA（GPIP1），
+               而GPIO3和GPIO1正好是ESP8266默认串口输出，在程序启动的不应该使用Serial功能，如果要使用，请用swap函数交换串口到GPIO15 (TX) and GPIO13 (RX)
+               参考本文件第281行
 */
 /*
   针对2 motor && 16 Servo驱动板，ESP8266的tx0(gpio1)和rx0(gpio3)被用于控制PWMA和DIRA
