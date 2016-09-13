@@ -3,10 +3,18 @@
 
 Ticker timer;
 
-#define PinPWMA 3
+//new espduino 2 motors&16 servos
+#define PinPWMA 14
+#define PinPWMB 12
+#define PinDirA 15
+#define PinDirB 13
+
+//old espduino 2 motors&16 servos
+/*#define PinPWMA 3
 #define PinPWMB 12
 #define PinDirA 1
-#define PinDirB 13
+#define PinDirB 13*/
+
 //nodemcu dev kit
 /*#define PinPWMA 5
   #define PinPWMB 4
